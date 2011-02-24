@@ -50,7 +50,7 @@ class Default_Model_Page
     protected function _getPath()
     {
         $user = ($this->_user ? $this->_user : 'master');
-        $path = realpath("/gitcms-data/{$user}/{$this->_uri}/page.json");
+        $path = "/cms-data/{$user}/{$this->_uri}/page.json";
     }
     
     public function _toJson($data)
