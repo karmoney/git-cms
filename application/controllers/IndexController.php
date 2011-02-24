@@ -1,4 +1,4 @@
-<?php
+<?php	
 
 class IndexController extends Zend_Controller_Action
 {
@@ -7,13 +7,19 @@ class IndexController extends Zend_Controller_Action
     {
         /* Initialize action controller here */
     }
+    
+	public function preDispatch()
+    {
+        if (!Zend_Auth::getInstance()->hasIdentity()) 
+        {            
+                $this->_helper->redirector('auth\index');            
+        }
+    }
 
     public function indexAction()
     {
         // action body
         $this->view->name = "Kartik";
-    }
-
-
+    }  
 }
 
