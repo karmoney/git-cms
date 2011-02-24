@@ -12,7 +12,7 @@ class OffersController extends Zend_Controller_Action
     {
         $page = new Default_Model_Page('offers');
         $data = $page->getData();
-        $this->view->assign($data);
+        $this->view->data = $data;
     }
     
     public function saveTestAction()

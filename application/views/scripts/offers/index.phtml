@@ -255,30 +255,34 @@ SignupSettings = {};
 
         
     </div>
+<?php foreach ($this->data as $park) : ?>
 
 <div class="primary-content">
     <div class="content-list-title-bar">
         <a name="brand-waltdisneyworld-resort-module"></a>
-        <div class="title-background"><?php echo $this->name; ?></div>
+        <div class="title-background"><?php echo $park['name']; ?></div>
     </div>
+    <?php foreach($park['content'] as $item) : ?>
     <div class="list-content-featured-item first">
         <div class="item-image">
-            <a id="" class="" href="<?php echo $this->link; ?>">
-                <img src="<?php echo $this->img ?>" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer">
+            <a id="" class="" href="<?php echo $item['link']; ?>">
+                <img src="<?php echo $item['img'] ?>" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer">
             </a>
         </div>
         <div class="item-details">
-            <a href="<?php echo $this->link ?>" class="headline-link">
-            <?php echo $this->title; ?>
+            <a href="<?php echo $item['link'] ?>" class="headline-link">
+            <?php echo $item['title']; ?>
             </a>
-            <?php echo $this->description; ?>
+            <?php echo $item['description']; ?>
             <div class="item-sublinks">
-                <a href="<?php echo $this->link; ?>">Get Details</a>
+                <a href="<?php echo $item['link']; ?>">Get Details</a>
                 <br />
             </div>
         </div>
     </div>
+    <?php endforeach; ?>
 </div>
+<?php endforeach; ?>
             
     </div>
 
