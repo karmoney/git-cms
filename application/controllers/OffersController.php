@@ -14,4 +14,13 @@ class OffersController extends Zend_Controller_Action
         $data = $page->getData();
         $this->view->assign($data);
     }
+    
+    public function saveTestAction()
+    {
+        $page = new Default_Model_Page('offers');
+        $data = $page->getData();
+        $data['name'] = 'updated name ' . time();
+        $page->save($data);
+        Zend_Debug::dump($data); exit;
+    }
 }

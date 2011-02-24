@@ -2,19 +2,17 @@
 
 class Default_Model_Page
 {
+    const REPO_ROOT = '/cms-data';
+    
     protected $_uri;
-    
-    protected $_repo;
-    
-    protected $_branch;
     
     protected $_user;
     
-    protected $_data;
-    
     protected $_userRepo;
     
-    public function __construct($uri)
+    protected $_masterRepo;
+    
+    public function __construct($uri = null)
     {
         $this->_uri = $uri;
     }
@@ -22,10 +20,13 @@ class Default_Model_Page
     public function setUser($user)
     {
         $this->_user = $user;
+        $this->_getUserRepo();
     }
     
     public function save($data)
     {
+        $repo = $this->_getUserRepo();
+        
 //        $branch = $this->_user ? $this->_user : 'master';
 //        $userRepo = $this->_getUserRepo();
         $json = $ths->_toJson($data);
@@ -33,6 +34,35 @@ class Default_Model_Page
         file_put_contents($path, $json);
         
         // Git commit
+    }
+    
+    protected function _getUserRepo()
+    {
+        if (null === $this->_userRepo) {
+            if (!$this->_user) {
+                throw new Exception("No user specified!");
+            }
+            
+            $userRepoPath = self::REPO_ROOT . '/' . $this->_user;
+            
+            if (!file_exists($userRepoPath)) {
+                // clone master into repo
+                $masterRepo = $this->_getMasterRepo();
+                $masterRepo->clone_to($userRepoPath);
+            }
+            
+            $this->_userRepo = Zend_Git::open($userRepoPath);
+        }
+        
+        return $this->_userRepo;
+    }
+    
+    protected function _getMasterRepo()
+    {
+        if (null === $this->_masterRepo) {
+            $this->_masterRepo = Zend_Git::open(self::REPO_ROOT . '/master');
+        }
+        return $this->_masterRepo;
     }
     
     public function publish()

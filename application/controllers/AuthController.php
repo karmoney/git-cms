@@ -43,6 +43,11 @@ class AuthController extends Zend_Controller_Action
   			{
   				$$storage = new Zend_Auth_Storage_Session();
                 $storage->write($authAdapter->getResultRowObject());
+                
+                // This will automatically create the user repo
+                $page = new Default_Model_Page();
+                $page->setUser($username);
+                
   				// redirect to a magical place
   			}  			
         	else 
