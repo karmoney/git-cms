@@ -256,90 +256,37 @@ SignupSettings = {};
         
     </div>
 
-        
-                            <div class="primary-content">
-            <div class="content-list-title-bar">
-
-                <a name="brand-waltdisneyworld-resort-module"></a>
-                <div class="title-background">Walt Disney World Resort</div>
+<?php
+foreach ($this->offers as $k => $v) :
+?>
+<div class="primary-content">
+    <div class="content-list-title-bar">
+        <a name="brand-waltdisneyworld-resort-module"></a>
+        <div class="title-background"><?php echo $v['name']; ?></div>
+    </div>
+    <?php foreach ($v['content'] as $offer) : ?>
+    <div class="list-content-featured-item first">
+        <div class="item-image">
+            <a id="" class="" href="<?php echo $offer['link']; ?>">
+                <img src="<?php echo $offer['img']; ?>" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer">
+            </a>
+        </div>
+        <div class="item-details">
+            <a href="<?php echo $offer['link'] ?>" class="headline-link">
+            <?php echo $offer['title']; ?>
+            </a>
+            <?php echo $offer['description']; ?>
+            <div class="item-sublinks">
+                <a href="<?php echo $offer['link']; ?>">Get Details</a>
+                <br />
             </div>
-                            <div class="list-content-featured-item first">
-                
-<div class="item-image">
-<a id="" class="" href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&promotionCode=fy11q2q4roomA&market=fy11q2q4roomA&CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPRoomOnlyOfferA0001"><img src="http://parks1.wdpromedia.com/media/disneyparks_v0100/media/special-offers/WDWFY11_RoomSpringOffer_thumb.jpg" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer"></a>
+        </div>
+    </div>
+    <?php endforeach; ?>
 </div>
-
-<div class="item-details">
-<a href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&amp;promotionCode=fy11q2q4roomA&amp;market=fy11q2q4roomA&amp;CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPRoomOnlyOfferA0001" class="headline-link">Last Chance to Save on Early Spring Travel!</a>Up to 30% off at Select Disney Resort hotels for stays most nights February 17 to April 16, 2011. Book by February 13, 2011.<div class="item-sublinks"><a href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&amp;promotionCode=fy11q2q4roomA&amp;market=fy11q2q4roomA&amp;CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPRoomOnlyOfferA0001">Get Details</a><br /></div></div>
-
-                </div>
-                            <div class="list-content-featured-item">
-                
-<div class="item-image">
-<a id="" class="" href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&promotionCode=fy11q2q4roomB&market=fy11q2q4roomB&CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPRoomOnlyOfferB0001"><img src="http://parks1.wdpromedia.com/media/disneyparks_v0100/media/special-offers/WDWFY11_RoomShoulderOffer_thumb.jpg" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer"></a>
-</div>
-
-<div class="item-details">
-<a href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&amp;promotionCode=fy11q2q4roomB&amp;market=fy11q2q4roomB&amp;CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPRoomOnlyOfferB0001" class="headline-link">Save on Late Spring and Late Summer Travel at Select Disney Resort Hotels!</a>Treat your family to a vacation in late spring for a savings up to 30% or in the late summer for savings up to 40%. Valid for stays most nights April 28 to June 14 and August 14 to October 1, 2011. Book by March 27, 2011.<div class="item-sublinks"><a href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&amp;promotionCode=fy11q2q4roomB&amp;market=fy11q2q4roomB&amp;CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPRoomOnlyOfferB0001">Get Details</a><br /></div></div>
-                </div>
-                            <div class="list-content-featured-item">
-
-                
-<div class="item-image">
-<a id="" class="" href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&promotionCode=fy11q2q4kids&market=fy11q2q4kids&CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPKidsFreeOffer0001"><img src="http://parks1.wdpromedia.com/media/disneyparks_v0100/media/special-offers/WDWFY11_KidsFreeOffer_thumb.jpg" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer"></a>
-</div>
-
-<div class="item-details">
-<a href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&amp;promotionCode=fy11q2q4kids&amp;market=fy11q2q4kids&amp;CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPKidsFreeOffer0001" class="headline-link">Kids, ages 3 to 9, Stay and Play FREE</a>When you purchase a non-discounted 4-night/4-day Magic Your Way room and ticket package at select Disney Resort hotels for stays most nights February 17 to October 1, 2011. Book by March 27, 2011.<div class="item-sublinks"><a href="http://bookwdw.reservations.disney.go.com/ibcwdw/en_US/specialOfferDetails?name=Promo&amp;promotionCode=fy11q2q4kids&amp;market=fy11q2q4kids&amp;CMP=ILC-DPSpecOffDPFY11Q2FY11Q2Q4DPKidsFreeOffer0001">Get Details</a><br /></div></div>
-                </div>
-                        </div>
-            <div class="primary-content">
-            <div class="content-list-title-bar">
-
-                <a name="brand-disneyland-resort-module"></a>
-                <div class="title-background">Disneyland Resort</div>
-            </div>
-                                <div class="list-content-featured-item first">
-                    
-<div class="item-image">
-<a id="" class="" href="http://disneyland.disney.go.com/special-offers/southern-california/fy11q2-2-day-ticket/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0003"><img src="http://parks1.wdpromedia.com/media/disneyparks_v0100/media/special-offers/DLRFY11Q2_ResortRoomOnlyOffer_thumb.jpg" alt="Disneyland Resort Special Offer" title="Disneyland Resort Special Offer"></a>
-</div>
-
-<div class="item-details">
-<a href="http://disneyland.disney.go.com/special-offers/southern-california/fy11q2-2-day-ticket/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0003" class="headline-link">So Cal Residents Can Go Wild for 2 Days for $99!</a>Go wild with a 2-Day 1-Park per Day ticket for Southern California residents! From <strong>now through April 14, 2011</strong>, buy a 2-Day 1-Park per Day Disneyland Resort ticket for just $99 and pick which park you want to visit each day!<div class="item-sublinks"><a href="http://disneyland.disney.go.com/special-offers/southern-california/fy11q2-2-day-ticket/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0003">Get Details</a><br /></div></div>
-
-                    </div>
-                                <div class="list-content-featured-item">
-                
-<div class="item-image">
-<a id="" class="" href="http://disneyland.disney.go.com/special-offers/fy11q2-4th-night-free-package/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0002 "><img src="http://parks1.wdpromedia.com/media/disneyparks_v0100/media/special-offers/DLRFY11Q2_4thNightFreeOffer_thumb.jpg" alt="Disneyland Resort Special Offer" title="Disneyland Resort Special Offer"></a>
-</div>
-
-<div class="item-details">
-<a href="http://disneyland.disney.go.com/special-offers/fy11q2-4th-night-free-package/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0002 " class="headline-link">Buy a 3-Night, 4-Day Package and Get the 4th Night Free</a>Buy a 3-night, 4-day room and ticket package and get the 4th night free when you stay in the heart of the magic. Offer valid for arrivals most nights from <strong>January 4 through April 11, 2011</strong> when you book by February 19, 2011.<div class="item-sublinks"><a href="http://disneyland.disney.go.com/special-offers/fy11q2-4th-night-free-package/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0002 ">Get Details</a><br /></div></div>
-
-                </div>
-                            <div class="list-content-featured-item">
-                
-<div class="item-image">
-<a id="" class="" href="http://disneyland.disney.go.com/special-offers/fy11q2-resort-room-only/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0001"><img src="http://parks2.wdpromedia.com/media/disneyparks_v0100/media/special-offers/DLRFY11Q2_2DayTicketOffer_thumb.jpg" alt="Disneyland Resort Special Offer" title="Disneyland Resort Special Offer"></a>
-</div>
-
-<div class="item-details">
-<a href="http://disneyland.disney.go.com/special-offers/fy11q2-resort-room-only/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0001" class="headline-link">Save Up to 35% on a 2-Night Stay</a>Save up to 35% when you stay at least 2 nights at a Disneyland Resort hotel. Offer valid for arrivals most nights from <strong>January 2 through April 13, 2011</strong> when you book by February 19.<div class="item-sublinks"><a href="http://disneyland.disney.go.com/special-offers/fy11q2-resort-room-only/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0001 ">Get Details</a><br /></div></div>
-
-                </div>
-                            <div class="list-content-featured-item">
-                
-<div class="item-image">
-<a id="" class="" href="http://disneyland.disney.go.com/special-offers/fy11q2-3-day-ticket/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0004"><img src="http://parks1.wdpromedia.com/media/disneyparks_v0100/media/special-offers/DLRFY11Q2_3DayTicketOffer_thumb.jpg" alt="Disneyland Resort Special Offer" title="Disneyland Resort Special Offer"></a>
-</div>
-
-<div class="item-details">
-<a href="http://disneyland.disney.go.com/special-offers/fy11q2-3-day-ticket/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0004" class="headline-link">3 Days in Both Parks for Only $169</a>Get 3 days of magic and memories for just $169. Park Hopper tickets let you enjoy rides and attractions at Disneyland Park and Disney California Adventure Park &mdash; you can even visit both parks on the same day! Offer good for arrivals from <strong>January 4 through April 14, 2011</strong>.<div class="item-sublinks"><a href="http://disneyland.disney.go.com/special-offers/fy11q2-3-day-ticket/?CMP=ILC-DPFY11Q2DLRRstROSpecOff0004">Get Details</a><br /></div></div>
-
-                </div>
-                        </div>
+<?php
+endforeach;
+?>
             
     </div>
 
