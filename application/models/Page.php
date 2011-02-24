@@ -51,6 +51,7 @@ class Default_Model_Page
     {
         $user = ($this->_user ? $this->_user : 'master');
         $path = "/cms-data/{$user}/{$this->_uri}/page.json";
+        return $path;
     }
     
     public function _toJson($data)
