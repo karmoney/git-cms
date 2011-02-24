@@ -29,7 +29,7 @@ class Default_Model_Page
         
 //        $branch = $this->_user ? $this->_user : 'master';
 //        $userRepo = $this->_getUserRepo();
-        $json = $ths->_toJson($data);
+        $json = $this->_toJson($data);
         $path = $this->_getPath();
         file_put_contents($path, $json);
         
