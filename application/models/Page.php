@@ -26,8 +26,6 @@ class Default_Model_Page
     
     public function save($data)
     {
-//        $branch = $this->_user ? $this->_user : 'master';
-//        $userRepo = $this->_getUserRepo();
         $json = $ths->_toJson($data);
     }
     
@@ -39,7 +37,7 @@ class Default_Model_Page
     public function getData()
     {
         $user = ($this->_user ? $this->_user : 'master');
-        $path = realpath(APPLICATION_PATH . "/../data/{$user}/{$this->_uri}/page.json");
+        $path = "/cms-data/{$user}/{$this->_uri}/page.json";
         $json = file_get_contents($path);
         return json_decode($json, true);
     }
