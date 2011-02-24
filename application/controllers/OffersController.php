@@ -18,6 +18,7 @@ class OffersController extends Zend_Controller_Action
     public function saveTestAction()
     {
         $page = new Default_Model_Page('offers');
+        $page->setUser('hector');
         $data = $page->getData();
         $data['name'] = 'updated name ' . time();
         $page->save($data);
