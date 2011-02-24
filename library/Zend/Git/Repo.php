@@ -22,7 +22,10 @@ class Zend_Git_Repo
 		} else {
 			$repo = new self($repo_path, true, false);
 			if (is_string($source))
-				$repo->clone_from($source);
+				{
+					$ret=$repo->clone_from($source);
+					var_dump($ret);
+				}
 			else $repo->run('init');
 			return $repo;
 		}
@@ -121,6 +124,7 @@ class Zend_Git_Repo
 	 * @return  string
 	 */	
 	protected function run_command($command) {
+	    var_dump($command);
 		$descriptorspec = array(
 			1 => array('pipe', 'w'),
 			2 => array('pipe', 'w'),
@@ -133,6 +137,9 @@ class Zend_Git_Repo
 		foreach ($pipes as $pipe) {
 			fclose($pipe);
 		}
+		var_dump($stdout);
+		var_dump($stderr);
+		var_dump($this->repo_path);
 
 		$status = trim(proc_close($resource));
 		if ($status) throw new Exception($stderr);
