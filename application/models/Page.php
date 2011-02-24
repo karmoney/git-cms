@@ -26,7 +26,7 @@ class Default_Model_Page
     
     public function save($data)
     {
-        $json = $ths->_toJson($data);
+        $json = $this->_toJson($data);
     }
     
     public function publish()
