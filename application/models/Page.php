@@ -29,6 +29,10 @@ class Default_Model_Page
 //        $branch = $this->_user ? $this->_user : 'master';
 //        $userRepo = $this->_getUserRepo();
         $json = $ths->_toJson($data);
+        $path = $this->_getPath();
+        file_put_contents($path, $json);
+        
+        // Git commit
     }
     
     public function publish()
@@ -38,10 +42,15 @@ class Default_Model_Page
     
     public function getData()
     {
-        $user = ($this->_user ? $this->_user : 'master');
-        $path = realpath(APPLICATION_PATH . "/../data/{$user}/{$this->_uri}/page.json");
+        $path = $this->_getPath();
         $json = file_get_contents($path);
         return json_decode($json, true);
+    }
+    
+    protected function _getPath()
+    {
+        $user = ($this->_user ? $this->_user : 'master');
+        $path = realpath("/gitcms-data/{$user}/{$this->_uri}/page.json");
     }
     
     public function _toJson($data)
