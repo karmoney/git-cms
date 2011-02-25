@@ -80,7 +80,9 @@ class OffersController extends Zend_Controller_Action
     {
     	$page = new Default_Model_Page('offers');
     	$auth = Zend_Auth::getInstance();
-    	$targetUser = $this->getRequest()->getPost('user');
+    	$page->setUser($auth->getIdentity());
+    	//var_dump($this->getRequest()->getParam('name')); exit;
+    	$targetUser = $this->getRequest()->getParam('name');
     	if (!$page->share($targetUser, 'offers')) {
     			header("Status: 404 Not Found");
     			echo $page->getError();

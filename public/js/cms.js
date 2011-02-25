@@ -106,12 +106,11 @@ jQuery(function($){
             url: shareUrl + '?name=' + $('#name').val(),
             type: 'GET',
             error: function (r) {
-                alert('There was an error while publishing: ' + r.responseText);
+                alert('There was an error while sharing: ' + r.responseText);
                 shim.hide(0);
             },
             success: function(r) {
-                alert(r);
-                alert('Your content has been published!');
+                alert('Your content has been shared!');
                 shim.hide(0);
             }
         });
