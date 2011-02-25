@@ -64,7 +64,7 @@ jQuery(function($){
         });
     });
     
-    var funciton = publish()
+    var function = publish()
     {
         $.ajax({
             url: publishUrl,
