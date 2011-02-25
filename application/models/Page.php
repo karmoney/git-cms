@@ -52,8 +52,6 @@ class Default_Model_Page
             	$this->_userRepo = Zend_Git::open($userRepoPath);
             	$ret = $this->_userRepo->run("pull");
             }
-            
-            $this->_userRepo = Zend_Git::open($userRepoPath);
         }
         
         return $this->_userRepo;
