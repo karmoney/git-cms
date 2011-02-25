@@ -72,6 +72,10 @@ class Default_Model_Page
     {
     	try {
             $ret = $this->_userRepo->run("pull");
+    	    if(strrpos($ret,"CONFLICT")!=false) {
+    			$this->setError("Merge Conflict!");
+    			$this->_userRepo->run("reset --hard origin");
+    		}
     	}
     	catch (Exception $e) {
     		$this->setError($e->getMessage());
@@ -89,15 +93,15 @@ class Default_Model_Page
     
     public function publish()
     {
-     	$result = $this->_userRepo->run("push");
-     	while (strrpos($result,"rejected")!=FALSE) {
-     		$pullResult=$this->_userRepo->run("pull");
-    		if(strrpos($pullResult,"CONFLICT")!=FALSE) {
-    			$this.setError("Merge Conflict!");
-    			return FALSE;
-    		} else $result = $this->_userRepo->run("push");
-    	} 
-    	return $result; 
+    	$repo = $this->_getUserRepo();
+    	if ($this->getError() != null) return false;
+    	
+        $result = $repo->run("push");
+        if (strrpos($result,"rejected")!=false) {
+    	    $this->setError("Publish Error!");
+    		return false;
+    	}
+    	return true;
     }
     
     public function getData()

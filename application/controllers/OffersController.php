@@ -31,11 +31,6 @@ class OffersController extends Zend_Controller_Action
     		$savedData = $page->getData();
     		
     		$data = $this->array_extend($savedData, $dataToSave);
-    		//$dataToSave = $dataToSave + $savedData;
-//    		$data = array();
-//    		foreach ($dataToSave as $i => $d) {
-//    		    $data[$i] = array_merge($dataToSave[$i], $savedData[$i]);
-//    		}
     		if (!$page->save($data)) {
     			header("Status: 404 Not Found");
     			echo $page->getError();
@@ -66,15 +61,18 @@ class OffersController extends Zend_Controller_Action
         $data = $page->getData();
         $data['name'] = 'updated name ' . time();
         $page->save($data);
-        Zend_Debug::dump($data); exit;
+Å
     }
     
-    public function pushAction() 
+    public function publishAction() 
     {
         $page = new Default_Model_Page('offers');
-        $page->setUser('muhammad');
-        $page->publish();
-        Zend_Debug::dump($data); exit;
-    
+        $auth = Zend_Auth::getInstance();
+        $page->setUser($auth->getIdentity());
+    	if (!$page->publish()) {
+    			header("Status: 404 Not Found");
+    			echo $page->getError();
+        }
+        exit;
     }
 }
