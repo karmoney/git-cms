@@ -1,6 +1,7 @@
 jQuery(function($){
     var saveUrl = '/offers/save',
         publishUrl = '/offers/publish',
+        shareUrl = '/offers/share/',
         editables = $('[class*=editable:]'),
         shim = $('<div class="cms-shim"></div>');
     
@@ -90,6 +91,39 @@ jQuery(function($){
     publishButton.click(function(){
         publish();
     });
+    
+    var shareButton = $('<button>Share</button>');
+    shareButton.css({
+        position: 'fixed',
+        right: '200px',
+        bottom: '10px',
+        zIndex: 1000
+    });
+    $(document.body).append(shareButton);
+    shareButton.click(function(){
+        shim.show(0);
+        $.ajax({
+            url: shareUrl + '?name=' + $('#name').val(),
+            type: 'GET',
+            error: function (r) {
+                alert('There was an error while publishing: ' + r.responseText);
+                shim.hide(0);
+            },
+            success: function(r) {
+                alert(r);
+                alert('Your content has been published!');
+                shim.hide(0);
+            }
+        });
+    });
+    var shareInput = $('<input type="text" name="user" id="name" value="share me"/>');
+    shareInput.css({
+        position: 'fixed',
+        right: '260px',
+        bottom: '5px',
+        zIndex: 1000
+    });
+    $(document.body).append(shareInput);
     
     var updateContentFromForm = function(form, elem) {
         form.find(':input').each(function(i, s) {
