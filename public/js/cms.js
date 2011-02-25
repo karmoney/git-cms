@@ -53,7 +53,7 @@ jQuery(function($){
                             alert('Your content has been saved!');
                             shim.hide(0);
                             updateContentFromForm(form, elem);
-                            //publish();
+                            publish();
                         }
                     });
                 },
@@ -70,15 +70,13 @@ jQuery(function($){
             url: publishUrl,
             type: 'POST',
             error: function (r) {
-                alert('There was an error while saving: ' + r.responseText);
+                alert('There was an error while publishing: ' + r.responseText);
                 shim.hide(0);
             },
             success: function(r) {
                 dialog.dialog("close");
-                alert('Your content has been saved!');
+                alert('Your content has been published!');
                 shim.hide(0);
-                updateContentFromForm(form, elem);
-                publish();
             }
         });
     };
@@ -120,10 +118,10 @@ jQuery(function($){
             var name = 'data[' + data[i].split('/').join('][') + ']';
             if (i == 'content') {
                 var input = $('<textarea id="content-'+ i + '" class="editable-field" name="' + name + '"></textarea>');
-                input.val(elem.html());
+                input.val(elem.html().trim());
             } else {
                 var input = $('<input type="text" id="content-'+ i + '" class="editable-field"/>');
-                input.val(elem.attr(i));
+                input.val(elem.attr(i).trim());
             }
             container.append(input);
             form.append(container);
@@ -131,3 +129,7 @@ jQuery(function($){
         return form;
     };
 });
+
+String.prototype.trim = function () {
+    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+}
