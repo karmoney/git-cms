@@ -15,8 +15,8 @@ class Cheese_Auth_Adapter implements Zend_Auth_Adapter_Interface
 		$users=array('asher','kartik', 'albert', 'muhammad', 'winnie', 'robert', 'hector' );
 		$passwords = array('mickey');
 		
-		if(in_array($this->_username,$users) && in_array($this->password,$passwords)) 
-		{
+		if(in_array($this->_username,$users) && in_array($this->_password,$passwords)) 
+		{ 
 			return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $this->_username, array());
 		}
 		

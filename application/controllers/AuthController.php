@@ -27,21 +27,26 @@ class AuthController extends Zend_Controller_Action
     
 	public function indexAction()
     {
-        $this->view->form = new LoginForm();
+        $this->view->form = new Default_Form_LoginForm();
     }
     
 	public function loginAction()
     {
-    	$params = $this->_getAllParams(); 
+    	$params = $this->_getAllParams();
+		
   		if(!empty($params['submit']) && $params['submit'] == 'submit') 
   		{
+			
   			$username = $_POST['username'];
   			$password = $_POST['password'];
   			$auth = Zend_Auth::getInstance();
+
+			$test = new Cheese_Auth_Adapter();
+
 			$result= $auth->authenticate(new Cheese_Auth_Adapter($username,$password));        	 
   			if($result->isValid())
   			{
-  				$$storage = new Zend_Auth_Storage_Session();
+  				$storage = new Zend_Auth_Storage_Session();
                 $storage->write($authAdapter->getResultRowObject());
                 
                 // This will automatically create the user repo
@@ -52,7 +57,8 @@ class AuthController extends Zend_Controller_Action
   			}  			
         	else 
         	{
-	          $this->view->message = 'Invalid login. Please try again.';
+				$this->view->form = new Default_Form_LoginForm;
+				$this->view->message = 'Invalid login. Please try again.';
         	}
   		}        
     }
