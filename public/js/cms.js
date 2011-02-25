@@ -49,10 +49,11 @@ jQuery(function($){
                             shim.hide(0);
                         },
                         success: function(r) {
+                            dialog.dialog("close");
                             alert('Your content has been saved!');
-                            $(this).dialog( "close" );
                             shim.hide(0);
                             updateContentFromForm(form, elem);
+                            //publish();
                         }
                     });
                 },
@@ -62,6 +63,25 @@ jQuery(function($){
             }
         });
     });
+    
+    var funciton = publish()
+    {
+        $.ajax({
+            url: publishUrl,
+            type: 'POST',
+            error: function (r) {
+                alert('There was an error while saving: ' + r.responseText);
+                shim.hide(0);
+            },
+            success: function(r) {
+                dialog.dialog("close");
+                alert('Your content has been saved!');
+                shim.hide(0);
+                updateContentFromForm(form, elem);
+                publish();
+            }
+        });
+    };
     
     var updateContentFromForm = function(form, elem) {
         form.find(':input').each(function(i, s) {

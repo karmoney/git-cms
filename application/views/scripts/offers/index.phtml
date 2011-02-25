@@ -259,14 +259,12 @@ SignupSettings = {};
 
         
     </div>
-<?php foreach ($this->data as $park) : ?>
-
 <div class="primary-content">
     <div class="content-list-title-bar">
         <a name="brand-waltdisneyworld-resort-module"></a>
-        <div class="title-background" class="editable:content=content/name"><?php echo $park['name']; ?></div>
+        <div class="title-background" class="editable:content=content/name"><?php echo $this->data['name']; ?></div>
     </div>
-    <?php foreach($park['content'] as $i => $item) : ?>
+    <?php foreach($this->data['content'] as $i => $item) : ?>
     <div class="list-content-featured-item first">
         <div class="item-image">
             <img src="<?php echo $item['img'] ?>" class="editable:src=content/<?php echo $i; ?>/img" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer">
@@ -284,7 +282,6 @@ SignupSettings = {};
     </div>
     <?php endforeach; ?>
 </div>
-<?php endforeach; ?>
             
     </div>
 

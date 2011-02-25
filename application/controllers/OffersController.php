@@ -11,9 +11,12 @@ class OffersController extends Zend_Controller_Action
     public function indexAction()
     {
         $page = new Default_Model_Page('offers');
-        $data = $page->getData();
         $auth = Zend_Auth::getInstance();
-        $this->view->editable = $auth->hasIdentity();
+        if ($auth->hasIdentity()) {
+            $this->view->editable = true;
+            $page->setUser($auth->getIdentity());
+        }
+        $data = $page->getData();
         $this->view->data = $data;
     }
     
@@ -26,13 +29,34 @@ class OffersController extends Zend_Controller_Action
     		$auth = Zend_Auth::getInstance();
     		$page->setUser($auth->getIdentity());
     		$savedData = $page->getData();
-    		$dataToSave = array_merge($dataToSave, $savedData);
-    		if (!$page->save($dataToSave)) {
+    		
+    		$data = $this->array_extend($savedData, $dataToSave);
+    		//$dataToSave = $dataToSave + $savedData;
+//    		$data = array();
+//    		foreach ($dataToSave as $i => $d) {
+//    		    $data[$i] = array_merge($dataToSave[$i], $savedData[$i]);
+//    		}
+    		if (!$page->save($data)) {
     			header("Status: 404 Not Found");
     			echo $page->getError();
     		}
     	}
     	exit;
+    }
+    
+    protected function array_extend($a, $b) {
+        foreach($b as $k=>$v) {
+            if( is_array($v) ) {
+                if( !isset($a[$k]) ) {
+                    $a[$k] = $v;
+                } else {
+                    $a[$k] = $this->array_extend($a[$k], $v);
+                }
+            } else {
+                $a[$k] = $v;
+            }
+        }
+        return $a;
     }
     
     public function saveTestAction()
