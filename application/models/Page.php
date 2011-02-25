@@ -89,7 +89,15 @@ class Default_Model_Page
     
     public function publish()
     {
-        
+     	$result = $this->_userRepo->run("push");
+     	while (strrpos($result,"rejected")!=FALSE) {
+     		$pullResult=$this->_userRepo->run("pull");
+    		if(strrpos($pullResult,"CONFLICT")!=FALSE) {
+    			$this.setError("Merge Conflict!");
+    			return FALSE;
+    		} else $result = $this->_userRepo->run("push");
+    	} 
+    	return $result; 
     }
     
     public function getData()
