@@ -46,10 +46,11 @@ class Default_Model_Page
             $userRepoPath = self::REPO_ROOT . '/' . $this->_user;
             
             if (!file_exists($userRepoPath)) {
-                // clone master into repo
-                //$masterRepo = $this->_getMasterRepo();
-                //$masterRepo->clone_to($userRepoPath);
-                Zend_Git_Repo::create_new($userRepoPath, self::REPO_ROOT . '/master');
+                $this->_userRepo = Zend_Git_Repo::create_new($userRepoPath, self::REPO_ROOT . '/master');
+            }
+            else {
+            	$this->_userRepo = Zend_Git::open($userRepoPath);
+            	$ret = $this->_userRepo->run("pull");
             }
             
             $this->_userRepo = Zend_Git::open($userRepoPath);
