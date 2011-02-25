@@ -55,13 +55,15 @@ jQuery(function($){
         for (i in data) {
             var container = $('<div></div>');
             container.append('<label for="content-' + i + '">' + i + '</label><br />');
-            var textarea = $('<textarea id="content-'+ i + '" class="editable-field"></textarea>');
+            
             if (i == 'content') {
-                textarea.val(elem.html());
+                var input = $('<textarea id="content-'+ i + '" class="editable-field"></textarea>');
+                input.val(elem.html());
             } else {
-                textarea.val(elem.attr(i));
+                var input = $('<input type="text" id="content-'+ i + '" class="editable-field"/>');
+                input.val(elem.attr(i));
             }
-            container.append(textarea);;
+            container.append(input);
             form.append(container);
         }
         return form;
