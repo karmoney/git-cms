@@ -1,7 +1,22 @@
 jQuery(function($){
-    var saveUrl = '/content/save',
-        publishUrl = '/content/publish',
-        editables = $('[class*=editable:]');
+    var saveUrl = '/offers/save',
+        publishUrl = '/offers/publish',
+        editables = $('[class*=editable:]'),
+        shim = $('<div class="cms-shim"></div>');
+    
+    shim.css({
+        backgroundColor: 'black',
+        opacity: 0.5,
+        position: 'static',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 10000
+    });
+    shim.hide(0);
+    $(document.body).append(shim);
+    shim.show(0);
     
     editables.addClass('editable');
     
@@ -13,7 +28,6 @@ jQuery(function($){
         e.preventDefault();
         var elem = $(this);
         var data = extractEditableProperties(elem.attr('class'));
-        console.log(data);
         var form = createForm(data, elem);
         var dialog = $('<div></div>');
         dialog.html(form);
@@ -23,8 +37,24 @@ jQuery(function($){
             width: 600,
             buttons: {
                 "Save": function() {
-                    alert('saving!');
-                    $(this).dialog( "close" );
+                    shim.show(0);
+                    var formData = form.serialize();
+                    console.log(formData);
+                    $.ajax({
+                        url: saveUrl,
+                        data: formData,
+                        type: 'POST',
+                        error: function (r) {
+                            alert('There was an error while saving: ' + r.responseText);
+                            shim.hide(0);
+                        },
+                        success: function(r) {
+                            alert('Your content has been saved!');
+                            $(this).dialog( "close" );
+                            shim.hide(0);
+                            updateContentFromForm(form, elem);
+                        }
+                    });
                 },
                 "Cancel": function() {
                     $(this).dialog( "close" );                    
@@ -32,6 +62,18 @@ jQuery(function($){
             }
         });
     });
+    
+    var updateContentFromForm = function(form, elem) {
+        form.find(':input').each(function(i, s) {
+            var input = $(s);
+            var type = input.attr('id').replace('content-', '');
+            if (type == 'content') {
+                elem.html(input.val());
+            } else {
+                elem.attr(type, input.val());
+            }
+        });
+    };
     
     var extractEditableProperties = function(className) {
         var classes = className.split(' ');
@@ -51,13 +93,13 @@ jQuery(function($){
     };
     
     var createForm = function(data, elem) {
-        var form = $('<form></form>');
+        var form = $('<form method="POST" action="' + saveUrl + '"></form>');
         for (i in data) {
             var container = $('<div></div>');
             container.append('<label for="content-' + i + '">' + i + '</label><br />');
-            
+            var name = 'data[' + data[i].split('/').join('][') + ']';
             if (i == 'content') {
-                var input = $('<textarea id="content-'+ i + '" class="editable-field"></textarea>');
+                var input = $('<textarea id="content-'+ i + '" class="editable-field" name="' + name + '"></textarea>');
                 input.val(elem.html());
             } else {
                 var input = $('<input type="text" id="content-'+ i + '" class="editable-field"/>');

@@ -266,18 +266,16 @@ SignupSettings = {};
         <a name="brand-waltdisneyworld-resort-module"></a>
         <div class="title-background" class="editable:content=content/name"><?php echo $park['name']; ?></div>
     </div>
-    <?php foreach($park['content'] as $item) : ?>
+    <?php foreach($park['content'] as $i => $item) : ?>
     <div class="list-content-featured-item first">
         <div class="item-image">
-            <a id="" class="editable:href=content/link" href="<?php echo $item['link']; ?>">
-                <img src="<?php echo $item['img'] ?>" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer">
-            </a>
+            <img src="<?php echo $item['img'] ?>" class="editable:src=content/<?php echo $i; ?>/img" alt="Walt Disney World Resort Special Offer" title="Walt Disney World Resort Special Offer">
         </div>
         <div class="item-details">
-            <a href="<?php echo $item['link'] ?>" class="headline-link editable:href=content/link&amp;content=content/title">
+            <a href="<?php echo $item['link'] ?>" class="headline-link editable:href=content/<?php echo $i; ?>/link&amp;content=content/<?php echo $i; ?>/title">
             <?php echo $item['title']; ?>
             </a>
-            <span class="editable:content=content/description"><?php echo $item['description']; ?></span>
+            <span class="editable:content=content/<?php echo $i; ?>/description"><?php echo $item['description']; ?></span>
             <div class="item-sublinks">
                 <a href="<?php echo $item['link']; ?>">Get Details</a>
                 <br />
