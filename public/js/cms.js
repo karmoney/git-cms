@@ -21,7 +21,7 @@ jQuery(function($){
         dialog.dialog({
             modal: true,
             buttons: {
-                Save: function() {
+                "Save": function() {
                     alert('saving!');
                     $(this).dialog( "close" );
                 }
