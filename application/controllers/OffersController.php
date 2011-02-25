@@ -14,6 +14,7 @@ class OffersController extends Zend_Controller_Action
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $this->view->editable = true;
+            $this->view->user = $auth->getIdentity();
             $page->setUser($auth->getIdentity());
         }
         $data = $page->getData();
