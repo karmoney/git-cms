@@ -316,5 +316,18 @@ class Zend_Git_Repo
 	public function checkout($branch) {
 		return $this->run("checkout $branch");
 	}
+	
+	
+    public function publish($target) {
+    	$this->run_command("cd ".$target);
+    	$result = $this->run("push");
+    	while (strrpos($result,"rejected")!=FALSE) {
+    		$pullResult=$this->run("pull");
+    		if(strrpos($pullResult,"CONFLICT")!=FALSE) {
+    			return FALSE;
+    		} else $result = $this->run("push");
+    	} 
+    	return $result;
+    }
 
 }

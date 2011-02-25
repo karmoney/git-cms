@@ -13,7 +13,7 @@ class AuthController extends Zend_Controller_Action
         {
             if ('logout' != $this->getRequest()->getActionName()) 
             {
-                $this->_helper->redirector('index', 'index');
+                $this->_helper->redirector('index', 'offers');
             }
         } 
         else 

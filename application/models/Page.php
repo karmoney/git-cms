@@ -12,6 +12,8 @@ class Default_Model_Page
     
     protected $_masterRepo;
     
+    protected $_error = null;
+    
     public function __construct($uri = null)
     {
         $this->_uri = $uri;
@@ -23,17 +25,26 @@ class Default_Model_Page
         $this->_getUserRepo();
     }
     
+    public function setError($error) 
+    {
+    	$this->_error = $error;
+    }
+    
+    public function getError() 
+    {
+    	return $this->_error;
+    }
+    
     public function save($data)
     {
         $repo = $this->_getUserRepo();
-        
-//        $branch = $this->_user ? $this->_user : 'master';
-//        $userRepo = $this->_getUserRepo();
+        if ($this->getError()!=null) return false;
         $json = $this->_toJson($data);
         $path = $this->_getPath();
-        file_put_contents($path, $json);
-        
+        file_put_contents($path, $json);   
         // Git commit
+        $res = $repo->commit("committing content changes");
+        return true;
     }
     
     protected function _getUserRepo()
@@ -50,11 +61,22 @@ class Default_Model_Page
             }
             else {
             	$this->_userRepo = Zend_Git::open($userRepoPath);
-            	$ret = $this->_userRepo->run("pull");
+            	$this->_syncWithMaster();
             }
         }
         
         return $this->_userRepo;
+    }
+    
+    protected function _syncWithMaster() 
+    {
+    	try {
+            $ret = $this->_userRepo->run("pull");
+    	}
+    	catch (Exception $e) {
+    		$this->setError($e->getMessage());
+    	}
+    	
     }
     
     protected function _getMasterRepo()
