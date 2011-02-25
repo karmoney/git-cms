@@ -72,15 +72,10 @@ class Default_Model_Page
     {
     	try {
             $ret = $this->_userRepo->run("pull");
-    	    if(strrpos($ret,"CONFLICT")!=false) {
-    			$this->setError("Merge Conflict!");
-    			$this->_userRepo->run("reset --hard origin");
-    		}
+    	} catch (Exception $e) {
+//			$this->setError("Merge Conflict!");
+			$this->_userRepo->run("reset --hard origin");
     	}
-    	catch (Exception $e) {
-    		$this->setError($e->getMessage());
-    	}
-    	
     }
     
     protected function _getMasterRepo()
@@ -96,11 +91,18 @@ class Default_Model_Page
     	$repo = $this->_getUserRepo();
     	if ($this->getError() != null) return false;
     	
-        $result = $repo->run("push");
-        if (strrpos($result,"rejected")!=false) {
-    	    $this->setError("Publish Error!");
-    		return false;
-    	}
+    	$master = $this->_getMasterRepo();
+    	$result = $master->run("pull /cms-data/{$this->_user} master");
+        //$result = $repo->run("push");
+//        if (strrpos($result,"rejected")!=false) {
+//    	    $this->setError("Publish Error!");
+//    		return false;
+//    	}
+        if(strrpos($result,"CONFLICT")!=false) {
+            $this->setError("Merge Conflict!");
+            $masterRepo->run("reset --hard HEAD");
+        }
+    	
     	return true;
     }
     

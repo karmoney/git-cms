@@ -61,7 +61,6 @@ class OffersController extends Zend_Controller_Action
         $data = $page->getData();
         $data['name'] = 'updated name ' . time();
         $page->save($data);
-Å
     }
     
     public function publishAction() 

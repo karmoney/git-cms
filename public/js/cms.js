@@ -7,7 +7,7 @@ jQuery(function($){
     shim.css({
         backgroundColor: 'black',
         opacity: 0.5,
-        position: 'static',
+        position: 'fixed',
         top: 0,
         left: 0,
         width: '100%',
@@ -16,7 +16,6 @@ jQuery(function($){
     });
     shim.hide(0);
     $(document.body).append(shim);
-    shim.show(0);
     
     editables.addClass('editable');
     
@@ -53,7 +52,6 @@ jQuery(function($){
                             alert('Your content has been saved!');
                             shim.hide(0);
                             updateContentFromForm(form, elem);
-                            publish();
                         }
                     });
                 },
@@ -66,6 +64,7 @@ jQuery(function($){
     
     var publish = function()
     {
+        shim.show(0);
         $.ajax({
             url: publishUrl,
             type: 'POST',
@@ -74,12 +73,23 @@ jQuery(function($){
                 shim.hide(0);
             },
             success: function(r) {
-                dialog.dialog("close");
                 alert('Your content has been published!');
                 shim.hide(0);
             }
         });
     };
+    
+    var publishButton = $('<button>Publish!</button>');
+    publishButton.css({
+        position: 'fixed',
+        right: '10px',
+        bottom: '10px',
+        zIndex: 1000
+    });
+    $(document.body).append(publishButton);
+    publishButton.click(function(){
+        publish();
+    });
     
     var updateContentFromForm = function(form, elem) {
         form.find(':input').each(function(i, s) {
