@@ -86,6 +86,19 @@ class Default_Model_Page
         return $this->_masterRepo;
     }
     
+    public function share($user, $uri)
+    {
+        $target = new self($uri);
+        $target->setUser($user);
+        $targetRepo = $target->_getUserRepo();
+        $result = $targetRepo->run("pull /cms-data/{$this->_user} master");	
+        if(strrpos($result,"CONFLICT")!=false) {
+            $this->setError("Merge Conflict!");
+            $targetRepo->run("reset --hard origin");
+        }
+    	return true;
+    }   
+     
     public function publish()
     {
     	$repo = $this->_getUserRepo();
@@ -93,11 +106,6 @@ class Default_Model_Page
     	
     	$master = $this->_getMasterRepo();
     	$result = $master->run("pull /cms-data/{$this->_user} master");
-        //$result = $repo->run("push");
-//        if (strrpos($result,"rejected")!=false) {
-//    	    $this->setError("Publish Error!");
-//    		return false;
-//    	}
         if(strrpos($result,"CONFLICT")!=false) {
             $this->setError("Merge Conflict!");
             $masterRepo->run("reset --hard HEAD");

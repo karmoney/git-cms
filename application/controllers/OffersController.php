@@ -74,4 +74,16 @@ class OffersController extends Zend_Controller_Action
         }
         exit;
     }
+    
+    public function shareAction()
+    {
+    	$page = new Default_Model_Page('offers');
+    	$auth = Zend_Auth::getInstance();
+    	$targetUser = $this->getRequest()->getPost('user');
+    	if (!$page->share($targetUser, 'offers')) {
+    			header("Status: 404 Not Found");
+    			echo $page->getError();
+        }
+        exit;
+    }
 }
