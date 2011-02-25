@@ -12,6 +12,7 @@ class OffersController extends Zend_Controller_Action
     {
         $page = new Default_Model_Page('offers');
         $data = $page->getData();
+        $this->view->editable = true;
         $this->view->data = $data;
     }
     
