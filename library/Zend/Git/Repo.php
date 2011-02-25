@@ -124,7 +124,7 @@ class Zend_Git_Repo
 	 * @return  string
 	 */	
 	protected function run_command($command) {
-	    var_dump($command);
+	    var_dump($command."<br/>");
 		$descriptorspec = array(
 			1 => array('pipe', 'w'),
 			2 => array('pipe', 'w'),
@@ -137,9 +137,8 @@ class Zend_Git_Repo
 		foreach ($pipes as $pipe) {
 			fclose($pipe);
 		}
-		var_dump($stdout);
-		var_dump($stderr);
-		var_dump($this->repo_path);
+		var_dump($stdout."<br/>");
+		var_dump($stderr."<br/>");
 
 		$status = trim(proc_close($resource));
 		if ($status) throw new Exception($stderr);
@@ -317,17 +316,4 @@ class Zend_Git_Repo
 		return $this->run("checkout $branch");
 	}
 	
-	
-    public function publish($target) {
-    	$this->run_command("cd ".$target);
-    	$result = $this->run("push");
-    	while (strrpos($result,"rejected")!=FALSE) {
-    		$pullResult=$this->run("pull");
-    		if(strrpos($pullResult,"CONFLICT")!=FALSE) {
-    			return FALSE;
-    		} else $result = $this->run("push");
-    	} 
-    	return $result;
-    }
-
 }
