@@ -12,7 +12,7 @@ class IndexController extends Zend_Controller_Action
     {
         if (!Zend_Auth::getInstance()->hasIdentity()) 
         {            
-			$this->_helper->redirector('auth\index');            
+			$this->_helper->redirector('auth/index');            
         }
     }
 

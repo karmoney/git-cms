@@ -12,8 +12,27 @@ class OffersController extends Zend_Controller_Action
     {
         $page = new Default_Model_Page('offers');
         $data = $page->getData();
-        $this->view->editable = true;
+        $auth = Zend_Auth::getInstance();
+        $this->view->editable = $auth->hasIdentity();
         $this->view->data = $data;
+    }
+    
+    public function saveAction()
+    {
+    	if ($this->getRequest()->isPost())
+    	{
+    		$dataToSave = $this->getRequest()->getPost('data');
+    		$page = new Default_Model_Page('offers');
+    		$auth = Zend_Auth::getInstance();
+    		$page->setUser($auth->getIdentity());
+    		$savedData = $page->getData();
+    		$dataToSave = array_merge($dataToSave, $savedData);
+    		if (!$page->save($dataToSave)) {
+    			header("Status: 404 Not Found");
+    			echo $page->getError();
+    		}
+    	}
+    	exit;
     }
     
     public function saveTestAction()
