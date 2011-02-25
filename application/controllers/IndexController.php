@@ -12,14 +12,15 @@ class IndexController extends Zend_Controller_Action
     {
         if (!Zend_Auth::getInstance()->hasIdentity()) 
         {            
-                $this->_helper->redirector('auth\index');            
+			$this->_helper->redirector('auth\index');            
         }
     }
 
     public function indexAction()
     {
         // action body
-        $this->view->name = "Kartik";
+		$this->_helper->redirector('index', 'offers');
+
     }  
 }
 
