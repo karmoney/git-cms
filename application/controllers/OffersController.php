@@ -24,4 +24,13 @@ class OffersController extends Zend_Controller_Action
         $page->save($data);
         Zend_Debug::dump($data); exit;
     }
+    
+    public function pushAction() 
+    {
+        $page = new Default_Model_Page('offers');
+        $page->setUser('muhammad');
+        $page->publish();
+        Zend_Debug::dump($data); exit;
+    
+    }
 }
